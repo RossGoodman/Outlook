@@ -1,0 +1,19 @@
+Public Sub employeeSearch()
+    Dim strEmployeeName As String
+    Dim item As Object
+    
+    strEmployeeName = ""
+    If TypeName(Application.ActiveWindow) = "Inspector" Then
+        Set item = Application.ActiveWindow.CurrentItem
+        If TypeOf item Is Outlook.ContactItem Then
+            strEmployeeName = item.FullName
+        End If
+        If TypeOf item Is Outlook.MailItem Then
+            strEmployeeName = item.SenderName
+        End If
+    End If
+    strEmployeeName = InputBox("Enter name", , strEmployeeName)
+    If strEmployeeName <> "" Then
+        NavigateToURL "http://colleaguedirectory.intranet.group/Pages/PeopleResults.aspx?k=" & strEmployeeName
+    End If
+End Sub
