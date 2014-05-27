@@ -1,0 +1,14 @@
+Private Sub NavigateToURL(ByVal argURL As String)
+    Const READYSTATE_COMPLETE = 4
+    Dim objIE As Object
+    Set objIE = CreateObject("InternetExplorer.Application")
+    With objIE
+        .Visible = True
+        .navigate argURL
+        Do Until .readystate = READYSTATE_COMPLETE
+            DoEvents
+        Loop
+    End With
+    'objIE.Quit
+    Set objIE = Nothing
+End Sub
