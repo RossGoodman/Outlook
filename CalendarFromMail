@@ -1,0 +1,21 @@
+Public Sub createCalendarFromMail()
+    Dim olApp   As Outlook.Application
+    Dim item    As Object
+    Dim mailItem    As Outlook.mailItem
+    Dim calItem As Outlook.AppointmentItem
+    
+    If TypeName(Application.ActiveWindow) = "Inspector" Then
+        Set item = Application.ActiveWindow.CurrentItem
+        If TypeOf item Is Outlook.mailItem Then
+            Set mailItem = item
+            Set olApp = Application
+            Set calItem = olApp.CreateItem(olAppointmentItem)
+            calItem.Subject = mailItem.Subject
+            calItem.Body = mailItem.Body
+            calItem.RequiredAttendees = mailItem.SenderEmailAddress & "; " & mailItem.CC
+            calItem.Display
+            calItem.Save
+        End If
+    End If
+ 
+End Sub
